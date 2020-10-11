@@ -4,6 +4,10 @@ const JUMP_SPEED = 200
 const GRAVITY = 200
 const ACCELERATION = 500
 const MAX_SPEED = 300
+const DODGE_SPEED = 200
+
+var hitpoints = 10
+
 
 var fire_rate = 10
 var last_shot = 0
@@ -23,6 +27,7 @@ enum Direction {
 }
 
 var velocity = Vector2()
+var knockback_velocity = Vector2()
 var direction = Direction.RIGHT setget _set_direction
 
 
@@ -70,9 +75,12 @@ func _physics_process(delta):
 			
 			velocity.x = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left"))
 			velocity.y = (Input.get_action_strength("move_down") - Input.get_action_strength("move_up"))
-			velocity = move_and_slide(velocity.normalized() * MAX_SPEED)
+			velocity = move_and_slide(velocity.normalized() * MAX_SPEED + knockback_velocity)
 		State.DODGE:
-			velocity = move_and_slide(dodge_direction * MAX_SPEED)
+			velocity = move_and_slide(dodge_direction * DODGE_SPEED)
+	
+	knockback_velocity *= delta * 10
+	
 	
 	
 	
@@ -81,15 +89,24 @@ func _physics_process(delta):
 
 func shoot():
 	if (OS.get_ticks_msec() - last_shot) > 1000 / fire_rate:
-		var projectile = preload("res://scenes/character/Bread.tscn").instance()
+		var projectile = preload("res://scenes/character/Burger.tscn").instance()
 		projectile.position = position + Vector2(0, -12)
 		projectile.velocity = get_local_mouse_position().normalized() * 300
 		get_parent().add_child(projectile)
 		last_shot = OS.get_ticks_msec()
 
+
 func dodge():
 	get_local_mouse_position().normalized()
 
+func hit(damage: int, impact_velocity: Vector2) -> void:
+	hitpoints -= damage
+	if hitpoints <= 0:
+		die()
+	knockback_velocity = impact_velocity
+	
+func die():
+	pass
 
 func _set_direction(new_direction):
 	print(new_direction)
