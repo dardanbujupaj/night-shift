@@ -5,6 +5,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	randomize()
 	get_tree().set_group("enemies", "target", $Character)
 	pass # Replace with function body.
 
@@ -12,3 +13,11 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+
+func _on_ZombieTimer_timeout():
+	for _i in randi() % 10:
+		var zombie = preload("res://scenes/enemies/Zombie.tscn").instance()
+		zombie.target = $Character
+		zombie.position = $ZombieSpawn.position + Vector2(rand_range(-10, 10), rand_range(-10, 10))
+		$YSort/enemies.add_child(zombie)
