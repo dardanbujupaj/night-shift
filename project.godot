@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "Enemy",
 "language": "GDScript",
 "path": "res://scenes/enemies/Enemy.gd"
+}, {
+"base": "Area2D",
+"class": "Ingredient",
+"language": "GDScript",
+"path": "res://Ingredient.gd"
 } ]
 _global_script_class_icons={
-"Enemy": ""
+"Enemy": "",
+"Ingredient": ""
 }
 
 [application]
@@ -23,6 +29,10 @@ _global_script_class_icons={
 config/name="Night Shift"
 run/main_scene="res://scenes/Diner.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+IngredientDB="*res://scenes/character/burger/IngredientDB.gd"
 
 [importer_defaults]
 
@@ -84,6 +94,11 @@ dodge={
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
+
+[layer_names]
+
+2d_render/layer_1="Character"
+2d_render/layer_5="Burger Ingredients"
 
 [rendering]
 

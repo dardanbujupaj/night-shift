@@ -89,9 +89,9 @@ func _physics_process(delta):
 
 func shoot():
 	if (OS.get_ticks_msec() - last_shot) > 1000 / fire_rate:
-		var projectile = preload("res://scenes/character/Burger.tscn").instance()
+		var projectile = preload("res://scenes/character/burger/Burger.tscn").instance()
 		projectile.position = position + Vector2(0, -12)
-		projectile.velocity = get_local_mouse_position().normalized() * 300
+		projectile.velocity = get_local_mouse_position().normalized() * 50
 		get_parent().add_child(projectile)
 		last_shot = OS.get_ticks_msec()
 
