@@ -10,9 +10,7 @@ var angular_velocity: float
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
-	for _i in range(randi() % 5):
-		var ingredient = randi() % IngredientDB.Ingredients.size()
-		add_ingredient(ingredient)
+	
 	rotation = randf() * 2 * PI
 	angular_velocity = rand_range(-PI, PI)
 	
@@ -40,6 +38,13 @@ func add_ingredient(ingredient):
 	
 	#mover upper bun
 	$burger_upper.offset.y = 5 - current_height
+	
+	var label = preload("res://scenes/character/PopupLabel.tscn").instance()
+	
+	label.text = IngredientDB.Ingredients.keys()[ingredient]
+	label.modulate = data["color"]
+	label.position = position
+	get_tree().root.add_child(label)
 
 
 
