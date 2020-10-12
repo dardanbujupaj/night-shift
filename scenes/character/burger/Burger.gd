@@ -1,10 +1,15 @@
 extends Area2D
 
+var damage = 1
+var knockback = 1
+var speed = 1
 
+var is_active = true
 
 var current_height = 0
+var layers = 1
 
-var velocity = Vector2()
+var direction = Vector2()
 var angular_velocity: float
 
 # Called when the node enters the scene tree for the first time.
@@ -22,11 +27,13 @@ func _process(delta):
 
 
 func _physics_process(delta):
-	position += velocity * delta
+	position += direction * speed * delta
 	
 # Add a Ingredients to the Burger
 # see Ingredients-enum
 func add_ingredient(ingredient):
+	layers += 1
+	
 	var data = IngredientDB.ingredient_data[ingredient]
 	
 	#add Ingredients
@@ -49,8 +56,12 @@ func add_ingredient(ingredient):
 
 
 func _on_Bread_body_entered(body: Node):
-	if body.is_in_group("enemies") and body.has_method("hit"):
-		body.hit(1, velocity)
+	if is_active and body.is_in_group("enemies") and body.has_method("hit"):
+		body.hit(damage * layers, direction * knockback * layers)
+		is_active = false
+		$AudioStreamPlayer2D.play()
+		yield($AudioStreamPlayer2D, "finished")
+		queue_free()
 
 
 func _on_Bread_area_entered(area):

@@ -1,8 +1,7 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/character/character_side.png" type="Texture" id=1]
 [ext_resource path="res://scenes/character/Character.gd" type="Script" id=2]
-[ext_resource path="res://scenes/character/8BIT_RETRO_Jump_Dirty_mono.wav" type="AudioStream" id=3]
 [ext_resource path="res://sound/shot.wav" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -78,11 +77,10 @@ smoothing_enabled = true
 position = Vector2( 0, -16 )
 frames = SubResource( 12 )
 animation = "walk"
-frame = 2
+frame = 3
 playing = true
 
 [node name="DodgeAudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 3 )
 
 [node name="ShootAudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )

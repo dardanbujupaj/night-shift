@@ -34,6 +34,10 @@ config/icon="res://icon.png"
 
 IngredientDB="*res://scenes/character/burger/IngredientDB.gd"
 
+[display]
+
+window/size/fullscreen=true
+
 [importer_defaults]
 
 texture={

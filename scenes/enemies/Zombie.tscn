@@ -10,7 +10,7 @@ extents = Vector2( 7.76207, 14.5006 )
 "enemies",
 ]]
 collision_layer = 2
-collision_mask = 4
+collision_mask = 6
 script = ExtResource( 2 )
 
 [node name="zombie" type="Sprite" parent="."]

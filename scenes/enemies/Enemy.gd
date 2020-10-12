@@ -54,7 +54,7 @@ func _physics_process(delta):
 	
 	move_and_slide(velocity + knockback_velocity)
 	
-	knockback_velocity *= delta * 10
+	knockback_velocity *= delta
 	
 	if OS.get_ticks_msec() - last_hit > 1000:
 		attack()
@@ -74,8 +74,7 @@ func hit(damage: int, impact_velocity: Vector2) -> void:
 
 func die():
 	dead = true
-	set_collision_layer_bit(0, false)
-	set_collision_layer_bit(1, false)
+	$CollisionShape2D.set_deferred("disabled", true)
 
 
 func set_random_target_point():

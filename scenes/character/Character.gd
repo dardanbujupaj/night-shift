@@ -9,7 +9,7 @@ const DODGE_SPEED = 200
 var hitpoints = 10
 
 
-var fire_rate = 10
+var fire_rate = 3
 var last_shot = 0
 
 var dodge_direction: Vector2
@@ -80,10 +80,7 @@ func _physics_process(delta):
 	
 	knockback_velocity *= delta * 10
 	
-	
-	
-	
-	
+
 
 
 func shoot():
@@ -92,7 +89,10 @@ func shoot():
 		$ShootAudioStreamPlayer.play()
 		var projectile = preload("res://scenes/character/burger/Burger.tscn").instance()
 		projectile.position = position + Vector2(0, -12)
-		projectile.velocity = get_local_mouse_position().normalized() * 150
+		projectile.direction = get_local_mouse_position().normalized()
+		projectile.speed = 150
+		projectile.knockback = 400
+		projectile.damage = 1
 		get_parent().add_child(projectile)
 		last_shot = OS.get_ticks_msec()
 
@@ -102,6 +102,7 @@ func dodge():
 	dodge_direction = get_local_mouse_position().normalized()
 	$AnimatedSprite.play("dodge")
 	$DodgeAudioStreamPlayer.play()
+	$CollisionShape2D.disabled = true
 
 func hit(damage: int, impact_velocity: Vector2) -> void:
 	hitpoints -= damage
@@ -122,3 +123,4 @@ func _on_AnimatedSprite_animation_finished():
 	if $AnimatedSprite.animation == "dodge":
 		$AnimatedSprite.play("walk")
 		state = State.IDLE
+		$CollisionShape2D.disabled = false
