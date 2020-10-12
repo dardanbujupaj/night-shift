@@ -42,10 +42,9 @@ func _process(delta):
 
 func _unhandled_input(event):
 	
-	if Input.is_action_just_pressed("dodge"):
-		state = State.DODGE
-		dodge_direction = get_local_mouse_position().normalized()
-		$AnimatedSprite.play("dodge")
+	if Input.is_action_just_pressed("dodge") and state == State.IDLE or state == State.WALK:
+		dodge()
+	
 
 
 func _physics_process(delta):
@@ -89,15 +88,20 @@ func _physics_process(delta):
 
 func shoot():
 	if (OS.get_ticks_msec() - last_shot) > 1000 / fire_rate:
+		
+		$ShootAudioStreamPlayer.play()
 		var projectile = preload("res://scenes/character/burger/Burger.tscn").instance()
 		projectile.position = position + Vector2(0, -12)
-		projectile.velocity = get_local_mouse_position().normalized() * 50
+		projectile.velocity = get_local_mouse_position().normalized() * 150
 		get_parent().add_child(projectile)
 		last_shot = OS.get_ticks_msec()
 
 
 func dodge():
-	get_local_mouse_position().normalized()
+	state = State.DODGE
+	dodge_direction = get_local_mouse_position().normalized()
+	$AnimatedSprite.play("dodge")
+	$DodgeAudioStreamPlayer.play()
 
 func hit(damage: int, impact_velocity: Vector2) -> void:
 	hitpoints -= damage

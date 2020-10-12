@@ -9,6 +9,7 @@ func _ready():
 	
 	$CPUParticles2D.emitting = true
 	$Tween.start()
+	$AudioStreamPlayer2D.play()
 	
 	yield($Tween, "tween_all_completed")
 	queue_free()
