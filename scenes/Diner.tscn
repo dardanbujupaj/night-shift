@@ -56,6 +56,7 @@ shape = SubResource( 2 )
 
 [node name="ZombieTimer" type="Timer" parent="."]
 wait_time = 5.0
+autostart = true
 
 [node name="ZombieSpawn" type="Position2D" parent="."]
 position = Vector2( -262.064, 0 )
