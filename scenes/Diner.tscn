@@ -63,7 +63,11 @@ wait_time = 5.0
 autostart = true
 
 [node name="ZombieSpawn" type="Position2D" parent="."]
-position = Vector2( -262.064, 0 )
+position = Vector2( -240.144, 0 )
+
+[node name="IngredientsTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
 
 [node name="YSort" type="YSort" parent="."]
 
@@ -118,3 +122,4 @@ ingredient = 6
 position = Vector2( -60.9554, 0.696799 )
 ingredient = 0
 [connection signal="timeout" from="ZombieTimer" to="." method="_on_ZombieTimer_timeout"]
+[connection signal="timeout" from="IngredientsTimer" to="." method="_on_IngredientsTimer_timeout"]

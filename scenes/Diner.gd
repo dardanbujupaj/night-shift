@@ -28,3 +28,15 @@ func _on_ZombieTimer_timeout():
 		zombie.target = $Character
 		zombie.position = $ZombieSpawn.position + Vector2(rand_range(-10, 10), rand_range(-10, 10))
 		$YSort/enemies.add_child(zombie)
+	
+	
+
+var max_ingredients = 8
+
+func _on_IngredientsTimer_timeout():
+	if get_tree().get_nodes_in_group("ingredients").size() < max_ingredients:
+		var pos = Vector2(rand_range(-250, 250), rand_range(-80, 80))
+		var ingredient = preload("res://scenes/character/burger/Ingredient.tscn").instance()
+		ingredient.ingredient = IngredientDB.Ingredients.values()[randi() % IngredientDB.Ingredients.size()]
+		ingredient.position = pos
+		add_child(ingredient)
