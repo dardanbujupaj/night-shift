@@ -108,8 +108,8 @@ func hit(damage: int, impact_velocity: Vector2) -> void:
 	hitpoints -= damage
 	if hitpoints <= 0:
 		die()
-	knockback_velocity = impact_velocity
-	$Camera2D.add_stress(1)
+	knockback_velocity += impact_velocity
+	$Camera2D.add_trauma(.3)
 	
 func die():
 	pass

@@ -2,16 +2,15 @@ extends Camera2D
 
 export var max_offset : float = 30.0
 export var max_roll : float = 30.0
-export var shakeReduction : float = 2.5
+export var trauma_reduction : float = 2.5
 
-var noise_seed: int = 0
-var stress : float = 0.0
-var shake : float = 0.0
+var base_seed: int = 0
+var trauma : float = 0.0
 
 func _ready():
 	randomize()
 	
-	noise_seed = randi()
+	base_seed = randi()
 	
 	
 # TODO: Add in some sort of rotation reset.
@@ -20,19 +19,19 @@ func _process(_delta):
 	
 	
 func _process_shake(center, angle, delta) -> void:
-	shake = stress * stress
+	var shake = pow(trauma, 2)
 	
-	var rotation_offset = angle + (max_roll * shake *  _get_noise(noise_seed, OS.get_ticks_msec()))
+	var rotation_offset = angle + (max_roll * shake *  _get_noise(base_seed, OS.get_ticks_msec()))
 	
 	
-	var offset_x = (max_offset * shake * _get_noise(noise_seed + 1, OS.get_ticks_msec()))
-	var offset_y = (max_offset * shake * _get_noise(noise_seed + 2, OS.get_ticks_msec()))
+	var offset_x = (max_offset * shake * _get_noise(base_seed + 1, OS.get_ticks_msec()))
+	var offset_y = (max_offset * shake * _get_noise(base_seed + 2, OS.get_ticks_msec()))
 	
 	transform = Transform2D(rotation_offset / 360.0, Vector2(offset_x, offset_y))
 	
-	stress -= shakeReduction * delta
+	trauma -= trauma_reduction * delta
 	
-	stress = clamp(stress, 0.0, 1.0)
+	trauma = clamp(trauma, 0.0, 1.0)
 	
 	
 func _get_noise(noise_seed, time) -> float:
@@ -46,6 +45,6 @@ func _get_noise(noise_seed, time) -> float:
 	return n.get_noise_1d(time)
 	
 	
-func add_stress(amount : float) -> void:
-	stress += amount
-	stress = clamp(stress, 0.0, 1.0)
+func add_trauma(amount : float) -> void:
+	trauma += amount
+	trauma = clamp(trauma, 0.0, 1.0)

@@ -2,6 +2,10 @@ extends KinematicBody2D
 class_name Enemy
 
 var speed = 100
+var knockback = 300
+var damage = 1
+var attack_range = 20
+
 var velocity = Vector2()
 var knockback_velocity = Vector2()
 
@@ -52,6 +56,8 @@ func _physics_process(delta):
 	
 	velocity = velocity.clamped(speed)
 	
+	$AttackRay.cast_to = (target_point - position).normalized() * attack_range
+	
 	move_and_slide(velocity + knockback_velocity)
 	
 	knockback_velocity *= delta
@@ -59,14 +65,17 @@ func _physics_process(delta):
 	if OS.get_ticks_msec() - last_hit > 1000:
 		attack()
 
+
 func attack():
-	if attack_ray.get_collider() != null:
+	var collider = attack_ray.get_collider()
+	if collider != null:
 		print("attack hit")
-		attack_ray.get_collider().hit(5, Vector2(50, 0))
+		var direction = (collider.position - position).normalized()
+		collider.hit(damage, direction * knockback)
 		last_hit = OS.get_ticks_msec()
 
-func hit(damage: int, impact_velocity: Vector2) -> void:
-	hitpoints -= damage
+func hit(damage_taken: int, impact_velocity: Vector2) -> void:
+	hitpoints -= damage_taken
 	if hitpoints <= 0:
 		die()
 	knockback_velocity = impact_velocity

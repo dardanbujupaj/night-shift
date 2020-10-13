@@ -40,3 +40,8 @@ func _on_IngredientsTimer_timeout():
 		ingredient.ingredient = IngredientDB.Ingredients.values()[randi() % IngredientDB.Ingredients.size()]
 		ingredient.position = pos
 		add_child(ingredient)
+
+
+func _on_Menu_pressed():
+	$CanvasLayer/PauseMenu.popup_centered()
+	get_tree().set_input_as_handled()
