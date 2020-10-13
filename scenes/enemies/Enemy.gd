@@ -1,10 +1,11 @@
 extends KinematicBody2D
 class_name Enemy
 
-var speed = 100
-var knockback = 300
-var damage = 1
-var attack_range = 20
+var speed = 100 # movement rate of the enemy
+var knockback = 300 # knockback of the attack
+var damage = 1 # damage per attack
+var attack_range = 20 # distance in which the enemy can attack
+var attack_rate = 1 # number of times the enemy can attack per second
 
 var velocity = Vector2()
 var knockback_velocity = Vector2()
@@ -62,7 +63,7 @@ func _physics_process(delta):
 	
 	knockback_velocity *= delta
 	
-	if OS.get_ticks_msec() - last_hit > 1000:
+	if OS.get_ticks_msec() - last_hit > 1000 / attack_rate:
 		attack()
 
 
@@ -74,6 +75,8 @@ func attack():
 		collider.hit(damage, direction * knockback)
 		last_hit = OS.get_ticks_msec()
 
+
+# is called when the enemy gets hit
 func hit(damage_taken: int, impact_velocity: Vector2) -> void:
 	hitpoints -= damage_taken
 	if hitpoints <= 0:
@@ -81,6 +84,7 @@ func hit(damage_taken: int, impact_velocity: Vector2) -> void:
 	knockback_velocity = impact_velocity
 
 
+# is called when the enemies hitpoints drop to zero
 func die():
 	dead = true
 	$CollisionShape2D.set_deferred("disabled", true)

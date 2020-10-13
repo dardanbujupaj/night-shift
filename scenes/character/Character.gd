@@ -78,6 +78,7 @@ func _physics_process(delta):
 		State.DODGE:
 			velocity = move_and_slide(dodge_direction * DODGE_SPEED)
 	
+	
 	knockback_velocity *= delta * 10
 	
 
