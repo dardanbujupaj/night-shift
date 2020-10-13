@@ -43,5 +43,5 @@ func _on_IngredientsTimer_timeout():
 
 
 func _on_Menu_pressed():
-	$CanvasLayer/PauseMenu.popup_centered()
+	$CanvasLayer/PauseMenu.popup_centered_minsize()
 	get_tree().set_input_as_handled()
