@@ -88,9 +88,10 @@ func shoot():
 	if (OS.get_ticks_msec() - last_shot) > 1000 / fire_rate:
 		
 		$ShootAudioStreamPlayer.play()
+		
 		var projectile = preload("res://scenes/character/burger/Burger.tscn").instance()
 		projectile.position = position + Vector2(0, -12)
-		projectile.direction = get_local_mouse_position().normalized()
+		projectile.direction = (get_local_mouse_position() + Vector2(0, 12)).normalized()
 		projectile.speed = 150
 		projectile.knockback = 400
 		projectile.damage = 1
