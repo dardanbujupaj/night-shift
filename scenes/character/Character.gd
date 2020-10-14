@@ -6,6 +6,8 @@ const ACCELERATION = 500
 const MAX_SPEED = 300
 const DODGE_SPEED = 200
 
+const WEAPON_KICKBACK = 300
+
 var hitpoints = 10
 
 
@@ -33,7 +35,7 @@ var direction = Direction.RIGHT setget _set_direction
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
 
 
 func _process(delta):
@@ -97,6 +99,9 @@ func shoot():
 		projectile.damage = 1
 		get_parent().add_child(projectile)
 		last_shot = OS.get_ticks_msec()
+		Input.get_current_cursor_shape()
+		
+		knockback_velocity -= projectile.direction * WEAPON_KICKBACK
 
 
 func dodge():
@@ -112,6 +117,10 @@ func hit(damage: int, impact_velocity: Vector2) -> void:
 		die()
 	knockback_velocity += impact_velocity
 	$Camera2D.add_trauma(.3)
+	
+	$HitTween.interpolate_property(self, "modulate", Color.white, Color.white * 2, 0.1, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT)
+	$HitTween.interpolate_property(self, "modulate", Color.white * 2, Color.white, 0.1, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT, 0.1)
+	$HitTween.start()
 	
 func die():
 	pass

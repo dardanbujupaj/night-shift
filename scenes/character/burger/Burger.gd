@@ -7,7 +7,7 @@ var speed = 1
 var is_active = true
 
 var current_height = 0
-var layers = 1
+var layers = 0
 
 var direction = Vector2()
 var angular_velocity: float
@@ -27,7 +27,8 @@ func _process(delta):
 
 
 func _physics_process(delta):
-	position += direction * speed * delta
+	if is_active:
+		position += direction * speed * delta
 	
 # Add a Ingredients to the Burger
 # see Ingredients-enum
@@ -49,6 +50,8 @@ func add_ingredient(ingredient):
 	var label = preload("res://scenes/character/PopupLabel.tscn").instance()
 	
 	label.text = IngredientDB.Ingredients.keys()[ingredient]
+	if (layers > 1):
+		label.text += "\nCOMBO x" + str(layers)
 	label.modulate = data["color"]
 	label.position = position
 	get_tree().root.add_child(label)
@@ -57,7 +60,8 @@ func add_ingredient(ingredient):
 
 func _on_Bread_body_entered(body: Node):
 	if is_active and body.is_in_group("enemies") and body.has_method("hit"):
-		body.hit(damage * layers, direction * knockback * layers)
+		var multiplier = layers + 1
+		body.hit(damage * multiplier, direction * knockback * multiplier)
 		is_active = false
 		$AudioStreamPlayer2D.play()
 		yield($AudioStreamPlayer2D, "finished")

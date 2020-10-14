@@ -25,3 +25,5 @@ shape = SubResource( 1 )
 position = Vector2( 0, -8 )
 enabled = true
 cast_to = Vector2( 10, 0 )
+
+[node name="HitTween" type="Tween" parent="."]

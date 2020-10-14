@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/night-shift-theme.wav-9a75d11aa8d670fbd3c221fb81c0142d.sample"
+
+[deps]
+
+source_file="res://sound/night-shift-theme.wav"
+dest_files=[ "res://.import/night-shift-theme.wav-9a75d11aa8d670fbd3c221fb81c0142d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0

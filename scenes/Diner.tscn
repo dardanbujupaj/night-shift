@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/diner.png" type="Texture" id=1]
 [ext_resource path="res://scenes/character/Character.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://scenes/Diner.gd" type="Script" id=5]
 [ext_resource path="res://ui/PauseMenu.tscn" type="PackedScene" id=6]
 [ext_resource path="res://ui/default_theme.tres" type="Theme" id=7]
+[ext_resource path="res://sound/night-shift-theme.wav" type="AudioStream" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 283.098, 84.3672 )
@@ -74,7 +75,7 @@ autostart = true
 position = Vector2( -240.144, 0 )
 
 [node name="IngredientsTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 3.0
 autostart = true
 
 [node name="YSort" type="YSort" parent="."]
@@ -149,6 +150,10 @@ shortcut = SubResource( 4 )
 text = "Menu"
 
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource( 6 )]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+autoplay = true
 [connection signal="timeout" from="ZombieTimer" to="." method="_on_ZombieTimer_timeout"]
 [connection signal="timeout" from="IngredientsTimer" to="." method="_on_IngredientsTimer_timeout"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Menu" to="." method="_on_Menu_pressed"]

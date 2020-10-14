@@ -82,6 +82,10 @@ func hit(damage_taken: int, impact_velocity: Vector2) -> void:
 	if hitpoints <= 0:
 		die()
 	knockback_velocity = impact_velocity
+	
+	$HitTween.interpolate_property(self, "modulate", Color.white, Color.white * 10, 0.1, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT)
+	$HitTween.interpolate_property(self, "modulate", Color.white * 10, Color.white, 0.1, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT, 0.1)
+	$HitTween.start()
 
 
 # is called when the enemies hitpoints drop to zero
