@@ -37,6 +37,8 @@ IngredientDB="*res://scenes/character/burger/IngredientDB.gd"
 [display]
 
 window/size/fullscreen=true
+mouse_cursor/custom_image="res://scenes/character/crosshair.png"
+mouse_cursor/custom_image_hotspot=Vector2( 64, 64 )
 
 [importer_defaults]
 
