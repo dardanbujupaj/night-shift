@@ -155,6 +155,8 @@ text = "Menu"
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource( 6 )]
 
 [node name="GameOverPopup" parent="CanvasLayer" instance=ExtResource( 9 )]
+visible = false
+popup_exclusive = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 pause_mode = 2

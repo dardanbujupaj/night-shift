@@ -5,6 +5,7 @@ onready var character = $YSort/Character
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	get_tree().paused = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	randomize()
 	get_tree().set_group("enemies", "target", character)
@@ -23,7 +24,7 @@ func _unhandled_input(event):
 
 
 func _on_ZombieTimer_timeout():
-	for _i in randi() % 5:
+	for _i in randi() % 4 + 2:
 		var zombie = preload("res://scenes/enemies/Zombie.tscn").instance()
 		zombie.target = character
 		zombie.position = $ZombieSpawn.position + Vector2(rand_range(-10, 10), rand_range(-10, 10))
