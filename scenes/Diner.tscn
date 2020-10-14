@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/diner.png" type="Texture" id=1]
 [ext_resource path="res://scenes/character/Character.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://ui/PauseMenu.tscn" type="PackedScene" id=6]
 [ext_resource path="res://ui/default_theme.tres" type="Theme" id=7]
 [ext_resource path="res://sound/night-shift-theme.wav" type="AudioStream" id=8]
+[ext_resource path="res://GameOverPopup.tscn" type="PackedScene" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 283.098, 84.3672 )
@@ -104,32 +105,34 @@ texture = ExtResource( 4 )
 
 [node name="enemies" type="YSort" parent="YSort"]
 
-[node name="Character" parent="." instance=ExtResource( 2 )]
-position = Vector2( 0.813416, 10.9633 )
+[node name="ingredients" type="YSort" parent="YSort"]
 
-[node name="Ingredient" parent="." instance=ExtResource( 3 )]
+[node name="Ingredient" parent="YSort/ingredients" instance=ExtResource( 3 )]
 position = Vector2( -35.7932, 0.696799 )
 ingredient = 7
 
-[node name="Ingredient2" parent="." instance=ExtResource( 3 )]
+[node name="Ingredient2" parent="YSort/ingredients" instance=ExtResource( 3 )]
 position = Vector2( -158.956, 0.167067 )
 ingredient = 3
 
-[node name="Ingredient3" parent="." instance=ExtResource( 3 )]
+[node name="Ingredient3" parent="YSort/ingredients" instance=ExtResource( 3 )]
 position = Vector2( -133.529, 1.4914 )
 ingredient = 4
 
-[node name="Ingredient4" parent="." instance=ExtResource( 3 )]
+[node name="Ingredient4" parent="YSort/ingredients" instance=ExtResource( 3 )]
 position = Vector2( -109.956, 2.02113 )
 ingredient = 5
 
-[node name="Ingredient5" parent="." instance=ExtResource( 3 )]
+[node name="Ingredient5" parent="YSort/ingredients" instance=ExtResource( 3 )]
 position = Vector2( -83.9988, 0.961661 )
 ingredient = 6
 
-[node name="Ingredient6" parent="." instance=ExtResource( 3 )]
+[node name="Ingredient6" parent="YSort/ingredients" instance=ExtResource( 3 )]
 position = Vector2( -60.9554, 0.696799 )
 ingredient = 0
+
+[node name="Character" parent="YSort" instance=ExtResource( 2 )]
+position = Vector2( 0.813416, 10.9633 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -151,9 +154,13 @@ text = "Menu"
 
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource( 6 )]
 
+[node name="GameOverPopup" parent="CanvasLayer" instance=ExtResource( 9 )]
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
 stream = ExtResource( 8 )
 autoplay = true
 [connection signal="timeout" from="ZombieTimer" to="." method="_on_ZombieTimer_timeout"]
 [connection signal="timeout" from="IngredientsTimer" to="." method="_on_IngredientsTimer_timeout"]
+[connection signal="died" from="YSort/Character" to="." method="_on_Character_died"]
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/Menu" to="." method="_on_Menu_pressed"]

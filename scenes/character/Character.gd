@@ -1,5 +1,8 @@
 extends KinematicBody2D
 
+
+signal died
+
 const JUMP_SPEED = 200
 const GRAVITY = 200
 const ACCELERATION = 500
@@ -123,7 +126,8 @@ func hit(damage: int, impact_velocity: Vector2) -> void:
 	$HitTween.start()
 	
 func die():
-	pass
+	emit_signal("died")
+	
 
 func _set_direction(new_direction):
 	print(new_direction)

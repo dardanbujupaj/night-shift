@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://ui/default_theme.tres" type="Theme" id=1]
 [ext_resource path="res://ui/PauseMenu.gd" type="Script" id=2]
+
+[sub_resource type="InputEventAction" id=1]
+action = "pause"
+
+[sub_resource type="ShortCut" id=2]
+shortcut = SubResource( 1 )
 
 [node name="PauseMenu" type="PopupPanel"]
 pause_mode = 2
@@ -30,6 +36,7 @@ alignment = 1
 [node name="Resume" type="Button" parent="VBoxContainer"]
 margin_right = 208.0
 margin_bottom = 32.0
+shortcut = SubResource( 2 )
 text = "Resume"
 
 [node name="Titlescreen" type="Button" parent="VBoxContainer"]
