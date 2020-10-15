@@ -11,7 +11,8 @@ const DODGE_SPEED = 200
 
 const WEAPON_KICKBACK = 300
 
-var hitpoints = 10
+var max_hitpoints = 10.0
+var hitpoints: float setget _set_hitpoints
 
 
 var fire_rate = 3
@@ -38,7 +39,9 @@ var direction = Direction.RIGHT setget _set_direction
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	$CanvasLayer/HealthBar.max_health = max_hitpoints
+	self.hitpoints = max_hitpoints
+	
 
 
 func _process(delta):
@@ -88,6 +91,9 @@ func _physics_process(delta):
 	
 
 
+func _set_hitpoints(new_hitpoints):
+	hitpoints = new_hitpoints
+	$CanvasLayer/HealthBar.health = new_hitpoints
 
 func shoot():
 	if (OS.get_ticks_msec() - last_shot) > 1000 / fire_rate:
@@ -115,11 +121,11 @@ func dodge():
 	$CollisionShape2D.disabled = true
 
 func hit(damage: int, impact_velocity: Vector2) -> void:
-	hitpoints -= damage
+	self.hitpoints -= damage
 	if hitpoints <= 0:
 		die()
 	knockback_velocity += impact_velocity
-	$Camera2D.add_trauma(.3)
+	$Camera2D.add_trauma(.5)
 	
 	$HitTween.interpolate_property(self, "modulate", Color.white, Color.white * 2, 0.1, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT)
 	$HitTween.interpolate_property(self, "modulate", Color.white * 2, Color.white, 0.1, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT, 0.1)

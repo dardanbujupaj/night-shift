@@ -1,8 +1,8 @@
 extends Camera2D
 
-export var max_offset : float = 30.0
-export var max_roll : float = 30.0
-export var trauma_reduction : float = 2.5
+export var max_offset : float = 50.0
+export var max_roll : float = 50.0
+export var trauma_reduction : float = 2
 
 var base_seed: int = 0
 var trauma : float = 0.0
