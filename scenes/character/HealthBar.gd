@@ -8,7 +8,7 @@ var health: float setget _set_health
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	max_value = max_health * RESOLUTION * 1.25
+	max_value = max_health * RESOLUTION * 1.2
 	self.health = max_health
 
 
