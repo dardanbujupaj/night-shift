@@ -4,6 +4,9 @@ extends Node2D
 onready var character = $YSort/Character
 onready var powerup_popup = $CanvasLayer/PowerupPopup
 
+onready var wave_nr = $CanvasLayer/PanelContainer/VBoxContainer/Wave
+onready var eliminated = $CanvasLayer/PanelContainer/VBoxContainer/Eliminated
+
 const POWERUP_DAMAGE = "Damage"
 const POWERUP_FIRERATE = "Firerate"
 const POWERUP_KNOCKBACK = "Knockback"
@@ -23,6 +26,7 @@ func _ready():
 	start_wave(wave)
 
 
+
 func _unhandled_input(event):
 		
 	if OS.is_debug_build():
@@ -30,6 +34,9 @@ func _unhandled_input(event):
 			get_tree().reload_current_scene()
 
 
+func update_wavecount():
+	wave_nr.text = "Wave %d" % wave
+	eliminated.text = "%d/%d eliminated" % [wave_killed, wave_enemies]
 
 func start_wave(wave_nr: int):
 	$ZombieTimer.start()
@@ -37,9 +44,12 @@ func start_wave(wave_nr: int):
 	wave_spawned = 0
 	wave_killed = 0
 	
+	update_wavecount()
+	
 
 func _on_zombie_died():
 	wave_killed += 1
+	update_wavecount()
 	check_wave()
 
 func check_wave():
