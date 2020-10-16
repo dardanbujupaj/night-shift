@@ -2,8 +2,7 @@ extends Enemy
 
 
 func _ready():
-	hitpoints = 5
-	speed = 80
+	pass
 
 func die():
 	$zombie.rotation = PI / 2

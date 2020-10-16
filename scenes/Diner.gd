@@ -36,9 +36,6 @@ func start_wave(wave_nr: int):
 	wave_enemies = pow(wave_nr, 2) + randi() % 2
 	wave_spawned = 0
 	wave_killed = 0
-	print(wave_enemies)
-	print(wave_spawned)
-	print(wave_killed)
 	
 
 func _on_zombie_died():
@@ -56,7 +53,7 @@ func _on_ZombieTimer_timeout():
 		if wave_spawned < wave_enemies:
 			var zombie = preload("res://scenes/enemies/Zombie.tscn").instance()
 			zombie.target = character
-			zombie.hitpoints = 4 + wave
+			zombie.hitpoints = 4 + wave * 2
 			zombie.speed = 100 + 10 * wave
 			zombie.position = $ZombieSpawn.position + Vector2(rand_range(-10, 10), rand_range(-10, 10))
 			zombie.connect("died", self, "_on_zombie_died")
@@ -65,7 +62,7 @@ func _on_ZombieTimer_timeout():
 	
 	
 
-var max_ingredients = 12
+var max_ingredients = 20
 
 func _on_IngredientsTimer_timeout():
 	if get_tree().get_nodes_in_group("ingredients").size() < max_ingredients:

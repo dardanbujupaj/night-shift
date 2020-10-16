@@ -69,6 +69,7 @@ func _on_Bread_body_entered(body: Node):
 		if layers >= 3:
 			var explosion = preload("res://scenes/Explosion.tscn").instance()
 			explosion.position = position
+			explosion.radius = pow(layers, 2)
 			get_tree().root.add_child(explosion)
 		
 		yield($AudioStreamPlayer2D, "finished")

@@ -3,6 +3,8 @@ class_name Enemy
 
 signal died
 
+var draw_target = false
+
 var speed = 100 # movement rate of the enemy
 var knockback = 300 # knockback of the attack
 var damage = 1 # damage per attack
@@ -34,12 +36,12 @@ func _ready():
 #	pass
 
 func _draw():
-	if OS.is_debug_build():
+	if draw_target:
 		draw_line(to_local(position), to_local(target_point), Color.white)
 
 
 func _process(delta):
-	if OS.is_debug_build():
+	if draw_target:
 		update()
 
 
@@ -72,7 +74,6 @@ func _physics_process(delta):
 func attack():
 	var collider = attack_ray.get_collider()
 	if collider != null:
-		print("attack hit")
 		var direction = (collider.position - position).normalized()
 		collider.hit(damage, direction * knockback)
 		last_hit = OS.get_ticks_msec()
@@ -103,5 +104,4 @@ func die():
 
 
 func set_random_target_point():
-	print("new random target")
 	target_point = Vector2(rand_range(position.x - 100, position.x + 100), rand_range(position.y - 100, position.y + 100))
