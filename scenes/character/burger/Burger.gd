@@ -59,9 +59,10 @@ func add_ingredient(ingredient):
 
 
 func _on_Bread_body_entered(body: Node):
-	if is_active and body.is_in_group("enemies") and body.has_method("hit"):
+	if is_active:
 		var multiplier = layers + 1
-		body.hit(damage * multiplier, direction * knockback * multiplier)
+		if body.has_method("hit"):
+			body.hit(damage * multiplier, direction * knockback * multiplier)
 		is_active = false
 		$AudioStreamPlayer2D.play()
 		

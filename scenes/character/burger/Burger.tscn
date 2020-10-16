@@ -10,7 +10,7 @@ radius = 5.75681
 
 [node name="Burger" type="Area2D"]
 collision_layer = 0
-collision_mask = 18
+collision_mask = 2147483670
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

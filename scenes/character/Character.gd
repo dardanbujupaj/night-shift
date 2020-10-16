@@ -14,8 +14,9 @@ const WEAPON_KICKBACK = 300
 var max_hitpoints = 10.0
 var hitpoints: float setget _set_hitpoints
 
-
-var fire_rate = 3
+var attack_damage = 1
+var weapon_knockback = 4
+var firerate = 3
 var last_shot = 0
 
 var dodge_direction: Vector2
@@ -96,7 +97,7 @@ func _set_hitpoints(new_hitpoints):
 	$CanvasLayer/HealthBar.health = new_hitpoints
 
 func shoot():
-	if (OS.get_ticks_msec() - last_shot) > 1000 / fire_rate:
+	if (OS.get_ticks_msec() - last_shot) > 1000 / firerate:
 		
 		$ShootAudioStreamPlayer.play()
 		
@@ -104,8 +105,8 @@ func shoot():
 		projectile.position = position + Vector2(0, -12)
 		projectile.direction = (get_local_mouse_position() + Vector2(0, 12)).normalized()
 		projectile.speed = 150
-		projectile.knockback = 400
-		projectile.damage = 1
+		projectile.knockback = weapon_knockback * 100
+		projectile.damage = attack_damage
 		get_parent().add_child(projectile)
 		last_shot = OS.get_ticks_msec()
 		Input.get_current_cursor_shape()

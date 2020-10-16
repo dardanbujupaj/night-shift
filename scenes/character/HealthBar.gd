@@ -14,7 +14,5 @@ func _ready():
 
 func _set_health(new_health):
 	health = new_health
-	print("new health " +str(new_health))
 	$Tween.interpolate_property(self, "value", float(value), float(health * RESOLUTION), 0.5,Tween.TRANS_CUBIC, Tween.EASE_OUT)
-	$Tween.connect("tween_step", self, "step")
 	$Tween.start()

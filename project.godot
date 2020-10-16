@@ -108,6 +108,8 @@ pause={
 [layer_names]
 
 2d_physics/layer_1="Character"
+2d_physics/layer_2="Enemies"
+2d_physics/layer_3="Walls"
 2d_render/layer_5="Burger Ingredients"
 2d_physics/layer_5="Ingredients"
 

@@ -1,6 +1,8 @@
 extends KinematicBody2D
 class_name Enemy
 
+signal died
+
 var speed = 100 # movement rate of the enemy
 var knockback = 300 # knockback of the attack
 var damage = 1 # damage per attack
@@ -81,6 +83,7 @@ func hit(damage_taken: int, impact_velocity: Vector2) -> void:
 	hitpoints -= damage_taken
 	if hitpoints <= 0:
 		die()
+		return
 	knockback_velocity = impact_velocity
 	
 	$HitTween.interpolate_property(self, "modulate", Color.white, Color.white * 10, 0.1, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT)
@@ -90,8 +93,13 @@ func hit(damage_taken: int, impact_velocity: Vector2) -> void:
 
 # is called when the enemies hitpoints drop to zero
 func die():
+	modulate = Color.white * 2
+	z_index = -1
+	remove_from_group("enemies")
+	emit_signal("died")
 	dead = true
 	$CollisionShape2D.set_deferred("disabled", true)
+	$HitTween.stop_all()
 
 
 func set_random_target_point():
