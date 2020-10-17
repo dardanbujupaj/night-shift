@@ -82,7 +82,7 @@ func attack():
 # is called when the enemy gets hit
 func hit(damage_taken: int, impact_velocity: Vector2) -> void:
 	hitpoints -= damage_taken
-	if hitpoints <= 0:
+	if hitpoints <= 0 and not dead:
 		die()
 		return
 	knockback_velocity = impact_velocity
@@ -94,11 +94,12 @@ func hit(damage_taken: int, impact_velocity: Vector2) -> void:
 
 # is called when the enemies hitpoints drop to zero
 func die():
+	
+	dead = true
 	modulate = Color.white * 2
 	z_index = -1
 	remove_from_group("enemies")
 	emit_signal("died")
-	dead = true
 	$CollisionShape2D.set_deferred("disabled", true)
 	$HitTween.stop_all()
 
