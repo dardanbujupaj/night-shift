@@ -121,6 +121,8 @@ func hit(damage: int, impact_velocity: Vector2) -> void:
 	$HitTween.interpolate_property(self, "modulate", Color.white * 2, Color.white, 0.1, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT, 0.1)
 	$HitTween.start()
 	
+	$HitAudioStreamPlayer.play()
+	
 	
 	
 func die():
