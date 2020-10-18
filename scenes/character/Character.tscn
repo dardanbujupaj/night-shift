@@ -83,7 +83,7 @@ script = ExtResource( 3 )
 position = Vector2( 0, -16 )
 frames = SubResource( 12 )
 animation = "walk"
-frame = 3
+frame = 1
 playing = true
 
 [node name="DodgeAudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]

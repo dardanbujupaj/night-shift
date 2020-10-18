@@ -9,7 +9,7 @@ var powerups: Array
 
 func prepare_powerups():
 	for child in powerup_container.get_children():
-		child.queue_free()
+		child.free()
 	
 	for powerup in powerups:
 		var button = Button.new()

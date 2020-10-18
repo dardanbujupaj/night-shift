@@ -49,34 +49,15 @@ func _process(delta):
 	if Input.is_action_pressed("shoot"):
 		shoot()
 
+
 func _unhandled_input(event):
-	
 	if Input.is_action_just_pressed("dodge") and state == State.IDLE or state == State.WALK:
 		dodge()
 	
 
 
 func _physics_process(delta):
-	# if Input.is_action_just_pressed("jump"):
-	# 	velocity.y = -JUMP_SPEED
 	
-	"""
-	
-	var acceleration = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left")) * ACCELERATION
-	
-	if acceleration != 0:
-		if sign(acceleration) != direction:
-			self.direction = sign(acceleration)
-		
-		if sign(acceleration) != sign(velocity.x):
-			velocity.x += acceleration * 2 * delta
-		else:
-			velocity.x += acceleration * delta
-	else:
-		velocity.x *= 0.8
-	
-	velocity.x = clamp(velocity.x, -MAX_SPEED, MAX_SPEED)
-	"""
 	match state:
 		State.IDLE, State.WALK:
 			$AnimatedSprite.scale.x = sign(get_local_mouse_position().x)
@@ -84,6 +65,7 @@ func _physics_process(delta):
 			velocity.x = (Input.get_action_strength("move_right") - Input.get_action_strength("move_left"))
 			velocity.y = (Input.get_action_strength("move_down") - Input.get_action_strength("move_up"))
 			velocity = move_and_slide(velocity.normalized() * MAX_SPEED + knockback_velocity)
+			
 		State.DODGE:
 			velocity = move_and_slide(dodge_direction * DODGE_SPEED)
 	
@@ -91,10 +73,11 @@ func _physics_process(delta):
 	knockback_velocity *= delta * 10
 	
 
-
+# set hitpoints and modify health bar
 func _set_hitpoints(new_hitpoints):
 	hitpoints = new_hitpoints
 	$CanvasLayer/HealthBar.health = new_hitpoints
+
 
 func shoot():
 	if (OS.get_ticks_msec() - last_shot) > 1000 / firerate:
@@ -119,7 +102,10 @@ func dodge():
 	dodge_direction = get_local_mouse_position().normalized()
 	$AnimatedSprite.play("dodge")
 	$DodgeAudioStreamPlayer.play()
-	$CollisionShape2D.disabled = true
+	# disable collision with enemies
+	set_collision_layer_bit(0, false)
+	set_collision_mask_bit(1, false)
+
 
 func hit(damage: int, impact_velocity: Vector2) -> void:
 	self.hitpoints -= damage
@@ -128,16 +114,18 @@ func hit(damage: int, impact_velocity: Vector2) -> void:
 	knockback_velocity += impact_velocity
 	$Camera2D.add_trauma(.5)
 	
+	# modulate sprite color
 	$HitTween.interpolate_property(self, "modulate", Color.white, Color.white * 2, 0.1, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT)
 	$HitTween.interpolate_property(self, "modulate", Color.white * 2, Color.white, 0.1, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT, 0.1)
 	$HitTween.start()
+	
+	
 	
 func die():
 	emit_signal("died")
 	
 
 func _set_direction(new_direction):
-	print(new_direction)
 	$AnimatedSprite.scale.x = new_direction
 	direction = new_direction
 
@@ -146,4 +134,6 @@ func _on_AnimatedSprite_animation_finished():
 	if $AnimatedSprite.animation == "dodge":
 		$AnimatedSprite.play("walk")
 		state = State.IDLE
-		$CollisionShape2D.disabled = false
+		# reenable collision with zombies
+		set_collision_layer_bit(0, true)
+		set_collision_mask_bit(1, true)
