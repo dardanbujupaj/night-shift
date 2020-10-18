@@ -21,7 +21,7 @@ func update_score():
 		var score = Score.get(key)
 		var highscore = Score.get_highscore(key)
 		
-		if score != highscore:
+		if score > highscore:
 			Score.set_highscore(key, score)
 		
 		var label = Label.new()
