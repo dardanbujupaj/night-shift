@@ -95,6 +95,8 @@ func shoot():
 		Input.get_current_cursor_shape()
 		
 		knockback_velocity -= projectile.direction * WEAPON_KICKBACK
+		
+		Score.burgers_shot += 1
 
 
 func dodge():

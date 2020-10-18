@@ -33,6 +33,7 @@ config/icon="res://icon.png"
 [autoload]
 
 IngredientDB="*res://scenes/character/burger/IngredientDB.gd"
+Score="*res://Score.gd"
 
 [display]
 

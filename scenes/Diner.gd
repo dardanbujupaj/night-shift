@@ -11,11 +11,16 @@ const POWERUP_DAMAGE = "Damage"
 const POWERUP_FIRERATE = "Firerate"
 const POWERUP_KNOCKBACK = "Knockback"
 
+
+
 var wave = 1
 var wave_enemies = 0
 var wave_spawned = 0
 var wave_killed = 0
 
+var total_killed = 0
+var total_burgers = 0
+var total_ingredients_collected = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,6 +28,7 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	randomize()
 	get_tree().set_group("enemies", "target", character)
+	Score.reset()
 	start_wave(wave)
 	
 	check_first_game()
@@ -57,12 +63,14 @@ func start_wave(wave_nr: int):
 	wave_killed = 0
 	
 	update_wavecount()
-	
+
 
 func _on_zombie_died():
 	wave_killed += 1
+	Score.enemies_killed += 1
 	update_wavecount()
 	check_wave()
+
 
 func check_wave():
 	if wave_killed >= wave_enemies:
@@ -135,6 +143,8 @@ func _on_wave_defeated():
 	yield(powerup_popup, "powerup_selected")
 	
 	get_tree().paused = false
+	
+	Score.wave = wave
 	
 	wave += 1
 	start_wave(wave)

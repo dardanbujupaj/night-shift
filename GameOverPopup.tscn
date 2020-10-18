@@ -1,36 +1,78 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/GameOverPopup.gd" type="Script" id=1]
 [ext_resource path="res://ui/default_theme.tres" type="Theme" id=2]
+[ext_resource path="res://ui/PressStart2P-Regular.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=5]
+size = 32
+outline_size = 4
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 3 )
 
 [node name="GameOverPopup" type="PopupPanel"]
 visible = true
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 624.0
+margin_bottom = 244.0
 theme = ExtResource( 2 )
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 184.0
-margin_bottom = 112.0
+margin_right = 616.0
+margin_bottom = 236.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="GameOver" type="Label" parent="VBoxContainer"]
-margin_right = 176.0
-margin_bottom = 32.0
+margin_right = 608.0
+margin_bottom = 48.0
+custom_fonts/font = SubResource( 5 )
 text = "GAME OVER"
+align = 1
 
-[node name="Score" type="Label" parent="VBoxContainer"]
+[node name="Score" type="VBoxContainer" parent="VBoxContainer"]
+margin_top = 52.0
+margin_right = 608.0
+margin_bottom = 192.0
+
+[node name="Wave" type="Label" parent="VBoxContainer/Score"]
+margin_right = 608.0
+margin_bottom = 32.0
+text = "Wave: 0 (Highscore: 0)"
+align = 1
+
+[node name="ZombiesEliminated" type="Label" parent="VBoxContainer/Score"]
 margin_top = 36.0
-margin_right = 176.0
+margin_right = 608.0
 margin_bottom = 68.0
-text = "Score"
+text = "Zombies eliminated: 0 (Highscore: 0)"
+align = 1
+
+[node name="BurgersShot" type="Label" parent="VBoxContainer/Score"]
+margin_top = 72.0
+margin_right = 608.0
+margin_bottom = 104.0
+text = "Burgers shot: 0 (Highscore: 0)"
+align = 1
+
+[node name="IngredientsCollected" type="Label" parent="VBoxContainer/Score"]
+margin_top = 108.0
+margin_right = 608.0
+margin_bottom = 140.0
+text = "Ingredients: 0 (Highscore: 0)"
+align = 1
 
 [node name="Restart" type="Button" parent="VBoxContainer"]
 pause_mode = 2
-margin_top = 72.0
-margin_right = 176.0
-margin_bottom = 104.0
+margin_top = 196.0
+margin_right = 608.0
+margin_bottom = 228.0
 text = "Restart"
+[connection signal="about_to_show" from="." to="." method="_on_GameOverPopup_about_to_show"]
 [connection signal="pressed" from="VBoxContainer/Restart" to="." method="_on_Restart_pressed"]

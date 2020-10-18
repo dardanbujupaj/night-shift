@@ -55,6 +55,8 @@ func add_ingredient(ingredient):
 	label.modulate = data["color"]
 	label.position = position
 	get_tree().root.add_child(label)
+	
+	Score.ingredients_collected += 1
 
 
 
