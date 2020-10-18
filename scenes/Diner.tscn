@@ -149,8 +149,9 @@ position = Vector2( 0.813416, 10.9633 )
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -96.0
+margin_left = -328.0
 margin_bottom = 40.0
+grow_horizontal = 0
 theme = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false

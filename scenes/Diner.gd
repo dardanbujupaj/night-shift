@@ -164,3 +164,5 @@ func _on_PowerupPopup_powerup_selected(type, amount):
 
 func _on_HowtoPanel_popup_hide():
 	get_tree().paused = false
+
+

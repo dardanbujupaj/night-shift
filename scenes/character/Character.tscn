@@ -89,7 +89,7 @@ max_roll = 100.0
 position = Vector2( 0, -16 )
 frames = SubResource( 12 )
 animation = "walk"
-frame = 1
+frame = 2
 playing = true
 
 [node name="DodgeAudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]

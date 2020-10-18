@@ -7,15 +7,27 @@ export var trauma_reduction : float = 2
 var base_seed: int = 0
 var trauma : float = 0.0
 
+var peek_offset = Vector2()
+var peek_active = true
+
 func _ready():
 	randomize()
 	
 	base_seed = randi()
 	
-	
+
+func _unhandled_input(event):
+	if event is InputEventMouseMotion:
+		if peek_active:
+			peek_offset = (get_viewport().get_mouse_position() - get_viewport_rect().size / 2) / 14
+		else:
+			peek_offset = Vector2()
 # TODO: Add in some sort of rotation reset.
 func _process(_delta):  
 	_process_shake(global_transform.origin, 0.0, _delta)
+	
+	offset = offset.linear_interpolate(peek_offset, 0.1)
+	
 	
 	
 func _process_shake(center, angle, delta) -> void:
@@ -32,6 +44,8 @@ func _process_shake(center, angle, delta) -> void:
 		trauma -= trauma_reduction * delta
 		
 		trauma = clamp(trauma, 0.0, 1.0)
+	else:
+		transform = Transform2D()
 	
 	
 func _get_noise(noise_seed, time) -> float:
