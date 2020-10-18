@@ -146,20 +146,32 @@ position = Vector2( 0.813416, 10.9633 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+[node name="MenuPanelContainer" type="PanelContainer" parent="CanvasLayer"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -328.0
-margin_bottom = 40.0
+margin_left = -110.0
+margin_bottom = 46.0
 grow_horizontal = 0
 theme = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Menu" type="Button" parent="CanvasLayer/HBoxContainer"]
-margin_right = 96.0
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MenuPanelContainer"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 104.0
 margin_bottom = 40.0
+grow_horizontal = 0
+theme = ExtResource( 7 )
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu" type="Button" parent="CanvasLayer/MenuPanelContainer/HBoxContainer"]
+margin_right = 96.0
+margin_bottom = 32.0
 focus_mode = 0
 enabled_focus_mode = 0
 shortcut = SubResource( 4 )
@@ -220,6 +232,6 @@ autoplay = true
 [connection signal="timeout" from="ZombieTimer" to="." method="_on_ZombieTimer_timeout"]
 [connection signal="timeout" from="IngredientsTimer" to="." method="_on_IngredientsTimer_timeout"]
 [connection signal="died" from="YSort/Character" to="." method="_on_Character_died"]
-[connection signal="pressed" from="CanvasLayer/HBoxContainer/Menu" to="." method="_on_Menu_pressed"]
+[connection signal="pressed" from="CanvasLayer/MenuPanelContainer/HBoxContainer/Menu" to="." method="_on_Menu_pressed"]
 [connection signal="powerup_selected" from="CanvasLayer/PowerupPopup" to="." method="_on_PowerupPopup_powerup_selected"]
 [connection signal="popup_hide" from="CanvasLayer/HowtoPanel" to="." method="_on_HowtoPanel_popup_hide"]
