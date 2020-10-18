@@ -24,8 +24,20 @@ func _ready():
 	randomize()
 	get_tree().set_group("enemies", "target", character)
 	start_wave(wave)
+	
+	check_first_game()
 
-
+# Check if the game is played for the first time
+# If not, the game is paused, and the controls are shown...
+func check_first_game():
+	var dir = Directory.new()
+	if not dir.file_exists("user://first_game"):
+		get_tree().paused = true
+		$CanvasLayer/HowtoPanel.popup_centered_minsize()
+		
+		var file = File.new()
+		file.open("user://first_game", File.WRITE)
+		file.close()
 
 func _unhandled_input(event):
 		
@@ -138,3 +150,7 @@ func _on_PowerupPopup_powerup_selected(type, amount):
 			character.weapon_knockback += amount
 		
 		
+
+
+func _on_HowtoPanel_popup_hide():
+	get_tree().paused = false

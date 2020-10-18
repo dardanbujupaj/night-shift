@@ -66,10 +66,11 @@ func _on_Bread_body_entered(body: Node):
 		is_active = false
 		$AudioStreamPlayer2D.play()
 		
-		if layers >= 3:
+		if layers >= 2:
 			var explosion = preload("res://scenes/Explosion.tscn").instance()
 			explosion.position = position
-			explosion.radius = pow(layers, 2)
+			explosion.radius = pow(layers + 1, 3)
+			explosion.damage = layers * 2
 			get_tree().root.add_child(explosion)
 		
 		yield($AudioStreamPlayer2D, "finished")

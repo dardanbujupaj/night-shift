@@ -11,6 +11,9 @@ func _ready():
 	var circle = CircleShape2D.new()
 	circle.radius = radius
 	$CollisionShape2D.shape = circle
+	$AudioStreamPlayer2D.play()
+	print("Explosion %d" % radius)
+	get_tree().call_group("shake_camera", "add_trauma", radius / 100)
 
 
 

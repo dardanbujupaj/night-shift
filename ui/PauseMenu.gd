@@ -7,7 +7,7 @@ func _on_Resume_pressed():
 
 
 func _on_Titlescreen_pressed():
-	pass # Replace with function body.
+	$CanvasLayer/HowtoPanel.popup_centered_minsize()
 
 
 func _on_Quit_pressed():

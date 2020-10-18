@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://ui/default_theme.tres" type="Theme" id=1]
 [ext_resource path="res://ui/PauseMenu.gd" type="Script" id=2]
+[ext_resource path="res://ui/HowtoPanel.tscn" type="PackedScene" id=3]
 
 [sub_resource type="InputEventAction" id=1]
 action = "pause"
@@ -39,19 +40,24 @@ margin_bottom = 32.0
 shortcut = SubResource( 2 )
 text = "Resume"
 
-[node name="Titlescreen" type="Button" parent="VBoxContainer"]
+[node name="HowTo" type="Button" parent="VBoxContainer"]
 margin_top = 36.0
 margin_right = 208.0
 margin_bottom = 68.0
-text = "Titlescreen"
+text = "How to"
 
 [node name="Quit" type="Button" parent="VBoxContainer"]
 margin_top = 72.0
 margin_right = 208.0
 margin_bottom = 104.0
 text = "Quit"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="HowtoPanel" parent="CanvasLayer" instance=ExtResource( 3 )]
 [connection signal="about_to_show" from="." to="." method="_on_PauseMenu_about_to_show"]
 [connection signal="popup_hide" from="." to="." method="_on_PauseMenu_popup_hide"]
 [connection signal="pressed" from="VBoxContainer/Resume" to="." method="_on_Resume_pressed"]
-[connection signal="pressed" from="VBoxContainer/Titlescreen" to="." method="_on_Titlescreen_pressed"]
+[connection signal="pressed" from="VBoxContainer/HowTo" to="." method="_on_Titlescreen_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_Quit_pressed"]

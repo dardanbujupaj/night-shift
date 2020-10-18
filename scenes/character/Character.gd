@@ -112,7 +112,7 @@ func hit(damage: int, impact_velocity: Vector2) -> void:
 	if hitpoints <= 0:
 		die()
 	knockback_velocity += impact_velocity
-	$Camera2D.add_trauma(.5)
+	$Camera2D.add_trauma(.3)
 	
 	# modulate sprite color
 	$HitTween.interpolate_property(self, "modulate", Color.white, Color.white * 2, 0.1, Tween.TRANS_BOUNCE, Tween.EASE_IN_OUT)

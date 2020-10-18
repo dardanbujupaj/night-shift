@@ -6,7 +6,7 @@ signal died
 var draw_target = false
 
 var speed = 100 # movement rate of the enemy
-var knockback = 300 # knockback of the attack
+var knockback = 1000 # knockback of the attack
 var damage = 1 # damage per attack
 var attack_range = 20 # distance in which the enemy can attack
 var attack_rate = 1 # number of times the enemy can attack per second

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/buger_explosion.wav-3f49db2884a6664117b1318ff5792fdd.sample"
+
+[deps]
+
+source_file="res://sound/buger_explosion.wav"
+dest_files=[ "res://.import/buger_explosion.wav-3f49db2884a6664117b1318ff5792fdd.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

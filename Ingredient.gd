@@ -12,7 +12,6 @@ export(IngredientDB.Ingredients) var ingredient setget _set_ingredient
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_set_ingredient(ingredient)
-	pass # Replace with function body.
 
 func _set_ingredient(new_ingredient):
 	ingredient = new_ingredient
@@ -20,3 +19,5 @@ func _set_ingredient(new_ingredient):
 		var data = IngredientDB.ingredient_data[new_ingredient]
 		$Sprite.texture = data["texture"]
 		$Sprite.offset.y = data["offset"]
+		
+		$CPUParticles2D.color =  data["color"]

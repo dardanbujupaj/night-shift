@@ -19,19 +19,19 @@ func _process(_delta):
 	
 	
 func _process_shake(center, angle, delta) -> void:
-	var shake = pow(trauma, 2)
-	
-	var rotation_offset = angle + (max_roll * shake *  _get_noise(base_seed, OS.get_ticks_msec()))
-	
-	
-	var offset_x = (max_offset * shake * _get_noise(base_seed + 1, OS.get_ticks_msec()))
-	var offset_y = (max_offset * shake * _get_noise(base_seed + 2, OS.get_ticks_msec()))
-	
-	transform = Transform2D(rotation_offset / 360.0, Vector2(offset_x, offset_y))
-	
-	trauma -= trauma_reduction * delta
-	
-	trauma = clamp(trauma, 0.0, 1.0)
+	if trauma > 0:
+		var shake = pow(trauma, 2)
+		var rotation_offset = angle + (max_roll * shake *  _get_noise(base_seed, OS.get_ticks_msec()))
+		
+		
+		var offset_x = (max_offset * shake * _get_noise(base_seed + 1, OS.get_ticks_msec()))
+		var offset_y = (max_offset * shake * _get_noise(base_seed + 2, OS.get_ticks_msec()))
+		
+		transform = Transform2D(rotation_offset / 360.0, Vector2(offset_x, offset_y))
+		
+		trauma -= trauma_reduction * delta
+		
+		trauma = clamp(trauma, 0.0, 1.0)
 	
 	
 func _get_noise(noise_seed, time) -> float:

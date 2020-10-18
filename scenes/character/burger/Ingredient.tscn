@@ -1,10 +1,14 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Ingredient.gd" type="Script" id=1]
 [ext_resource path="res://scenes/character/burger/burger_mustard.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 4.66137 )
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0.2, 0.5, 0.8 )
+colors = PoolColorArray( 0.243137, 0.243137, 0.243137, 0, 1, 1, 1, 1, 0, 0, 0, 0 )
 
 [node name="Ingredient" type="Area2D"]
 collision_layer = 16
@@ -18,3 +22,11 @@ offset = Vector2( 0, -3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 10.0
+initial_velocity_random = 0.5
+damping = 10.0
+color_ramp = SubResource( 2 )

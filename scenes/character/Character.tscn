@@ -72,18 +72,22 @@ script = ExtResource( 2 )
 position = Vector2( 0, -8 )
 shape = SubResource( 1 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." groups=[
+"shake_camera",
+]]
+pause_mode = 2
 rotating = true
 current = true
 zoom = Vector2( 0.25, 0.25 )
 smoothing_enabled = true
 script = ExtResource( 3 )
+max_offset = 1200.0
+max_roll = 100.0
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -16 )
 frames = SubResource( 12 )
 animation = "walk"
-frame = 1
 playing = true
 
 [node name="DodgeAudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
