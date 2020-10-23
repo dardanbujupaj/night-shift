@@ -1,2 +1,4 @@
-# gwj26
+# Night Shift
+
+An entry for the [Godot Wild Jam 26](https://itch.io/jam/godot-wild-jam-26).
  
